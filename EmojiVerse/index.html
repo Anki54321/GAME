@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emoji Movie & Word Trivia Game</title>
+  <!-- Socket.io Client Library -->
+  <script src="/socket.io/socket.io.js"></script>
+  
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --panel-dark: #1e293b;
+      --text-light: #f8fafc;
+      --accent-blue: #3b82f6;
+      --accent-green: #22c55e;
+      --accent-red: #ef4444;
+      --accent-amber: #f59e0b;
+      --accent-purple: #a855f7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      transition: background-color 0.2s ease;
+    }
+
+    /* Screen Flashes */
+    .correct-flash { background-color: #14532d; }
+    .wrong-flash { background-color: #7f1d1d; }
+
+    .game-container {
+      width: 100%;
+      max-width: 500px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .screen {
+      background: var(--panel-dark);
+      padding: 32px 24px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      border: 1px solid #334155;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+
+    p {
+      color: #94a3b8;
+      margin-bottom: 24px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 14px 20px;
+      margin: 12px 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      background: var(--accent-blue);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.1s ease, filter 0.2s ease;
+    }
+
+    button:hover {
+      filter: brightness(1.1);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-back {
+      background: #475569;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 14px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      border: 2px solid #475569;
+      background: #0f172a;
+      color: white;
+      margin-bottom: 16px;
+      text-align: center;
+      outline: none;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--accent-blue);
+    }
+
+    /* Gameplay Specific Layouts */
+    .hud {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    #my-score { color: var(--accent-green); }
+    #opp-score { color: var(--accent-amber); }
+    #timer { color: #cbd5e1; }
+
+    #emoji {
+      font-size: 3.5rem;
+      margin: 30px 0;
+      min-height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    #feedback {
+      min-height: 24px;
+      margin-top: 12px;
+      font-weight: 600;
+    }
+
+    .room-code-box {
+      font-size: 2rem;
+      letter-spacing: 4px;
+      font-weight: bold;
+      color: var(--accent-amber);
+      background: #0f172a;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 20px 0;
+      border: 1px dashed #475569;
+    }
+
+    .game-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .game-actions button {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="game-container">
+    
+    <!-- Screen 1: Welcome Landing -->
+    <div id="welcome-view" class="screen">
+      <h1>🎬 Emoji Decipher 🎭</h1>
+      <p>Decipher Movies, Characters, and Word Play puzzles before time runs out!</p>
+      <button onclick="initAudio(); showScreen('mode-view');">▶️ Start Game</button>
+    </div>
+
+    <!-- Screen 2: Mode Selector -->
+    <div id="mode-view" class="screen" style="display:none;">
+      <h1>Choose Your Mode</h1>
+      <button onclick="selectLocalMode();">👤 Single Player</button>
+      <button onclick="initAudio(); showScreen('multiplayer-options-view');">👥 Multiplayer</button>
+      <button onclick="showScreen('welcome-view')" class="btn-back">Back</button>
+    </div>
+
+    <!-- Screen 3: Multiplayer Branch Menu -->
+    <div id="multiplayer-options-view" class="screen" style="display:none;">
+      <h1>⚔️ Online Room Options ⚔️</h1>
+      <button onclick="showScreen('create-view');" style="background: var(--accent-purple);">🏠 Host Game</button>
+      <button onclick="showScreen('join-view');" style="background: var(--accent-green);">🔑 Join Code</button>
+      <button onclick="showScreen('mode-view')" class="btn-back">Back</button>
+    </div>
+
+    <!-- Screen 4: Host Room - Choose Theme -->
+    <div id="create-view" class="screen" style="display:none;">
+      <h1>Select Match Theme</h1>
+      <button onclick="hostSession('bollywood');">🇮🇳 Bollywood Movies</button>
+      <button onclick="hostSession('hollywood');">🎥 Hollywood Movies</button>
+      <button onclick="hostSession('characters');" style="background: var(--accent-amber);">🎭 Iconic Characters</button>
+      <button onclick="hostSession('wordplay');" style="background: var(--accent-purple);">🔤 Word Play / Rebus</button>
+      <button onclick="showScreen('multiplayer-options-view')" class="btn-back">Back</button>
+    </div>
+
+    <!-- Screen 5: Waiting Room -->
+    <div id="waiting-view" class="screen" style="display:none;">
+      <h2>Waiting Room</h2>
+      <p>Share this room code with your friend:</p>
+      <div id="display-code" class="room-code-box">-----</div>
+      <p style="animation: pulse 1.5s infinite;">⌛ Waiting for opponent to join...</p>
+      <button onclick="quitGame();" class="btn-back">Cancel Match</button>
+    </div>
+
+    <!-- Screen 6: Join Room Input -->
+    <div id="join-view" class="screen" style="display:none;">
+      <h2>Enter Room Code</h2>
+      <input type="text" id="room-input" placeholder="e.g. AB12" maxlength="6" autocomplete="off">
+      <button onclick="joinSession();" style="background: var(--accent-green);">Connect to Room</button>
+      <button onclick="showScreen('multiplayer-options-view')" class="btn-back">Back</button>
+    </div>
+
+    <!-- Screen 7: Single Player Theme Selection -->
+    <div id="local-theme-view" class="screen" style="display:none;">
+      <h1>Select Category</h1>
+      <button onclick="startSinglePlayer('bollywood');">🇮🇳 Bollywood Movies</button>
+      <button onclick="startSinglePlayer('hollywood');">🎥 Hollywood Movies</button>
+      <button onclick="startSinglePlayer('characters');" style="background: var(--accent-amber);">🎭 Iconic Characters</button>
+      <button onclick="startSinglePlayer('wordplay');" style="background: var(--accent-purple);">🔤 Word Play / Rebus</button>
+      <button onclick="showScreen('mode-view')" class="btn-back">Back</button>
+    </div>
+
+    <!-- Screen 8: Active Gameplay Arena -->
+    <div id="game-view" class="screen" style="display:none;">
+      <h2 id="theme-title">🎬 Movie Puzzles</h2>
+      <div class="hud">
+        <div id="my-score">Your Score: 0</div>
+        <div id="opp-score" style="display:none;">Opponent: 0</div>
+        <div id="timer">Time: 45s</div>
+      </div>
+      
+      <div id="lives">❤️ ❤️ ❤️</div>
+      <div id="emoji">❓❓❓</div>
+      
+      <input type="text" id="answer" placeholder="Type your answer here..." autocomplete="off">
+      
+      <div class="game-actions">
+        <button onclick="submitAnswer();" style="background: var(--accent-green);">Submit</button>
+        <button onclick="skipPuzzle();" style="background: var(--accent-amber);">Skip (-5 pts)</button>
+      </div>
+      
+      <div id="feedback"></div>
+      <button onclick="quitGame();" class="btn-back" style="margin-top:24px; padding:10px;">🏳️ Quit Game</button>
+    </div>
+
+    <!-- Screen 9: Match Over Screen -->
+    <div id="end-view" class="screen" style="display:none;">
+      <h1 id="match-title">Game Over</h1>
+      <h2 id="final-outcome"></h2>
+      <p id="final-stats"></p>
+      <div id="rating" style="font-size: 1.3rem; margin-bottom: 24px; font-weight: bold; color: var(--accent-amber);"></div>
+      <button onclick="quitGame();">🏠 Main Menu</button>
+    </div>
+
+  </div>
+
+  <!-- Game Logic Pipeline -->
+  <script>
+    const socket = io();
+    let roomCode = '', score = 0, lives = 3, timeLeft = 45, current = 0;
+    let timerInterval, currentPuzzles = [];
+    let isMultiplayer = false;
+    let audioCtx = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playWrongSound() {
+      try {
+        initAudio();
+        if (!audioCtx) return;
+
+        const osc1 = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        
+        osc1.type = 'sawtooth';
+        osc1.frequency.setValueAtTime(120, audioCtx.currentTime); 
+        osc1.frequency.linearRampToValueAtTime(80, audioCtx.currentTime + 0.25);
+        
+        gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+        
+        osc1.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        osc1.start();
+        osc1.stop(audioCtx.currentTime + 0.3);
+      } catch (error) {
+        console.log("Audio contextual playback blocked:", error);
+      }
+    }
+
+    function showScreen(screenId) {
+      ['welcome-view', 'mode-view', 'multiplayer-options-view', 'create-view', 'waiting-view', 'join-view', 'local-theme-view', 'game-view', 'end-view'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = (id === screenId) ? 'block' : 'none';
+      });
+    }
+
+    function cleanString(str) {
+      return str.toLowerCase().replace(/^(the|a|an)\s+/i, "").replace(/[^a-z0-9]/g, ""); 
+    }
+
+    function shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+
+    // Dynamic JSON Loader
+    async function loadPuzzlePool(category) {
+      try {
+        const response = await fetch(`puzzles/${category}.json`);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch puzzles/${category}.json`);
+        }
+        return await response.json();
+      } catch (err) {
+        console.error("JSON fetch error:", err);
+        alert("Error loading puzzles! Check browser console and ensure JSON files are served correctly.");
+        return [];
+      }
+    }
+
+    // --- Multiplayer Matchmaking Handles ---
+    async function hostSession(theme) {
+      initAudio();
+      const pool = await loadPuzzlePool(theme);
+      if (pool.length === 0) return;
+      socket.emit('createRoom', { theme, puzzles: pool });
+    }
+
+    socket.on('roomCreated', (data) => {
+      roomCode = data.roomCode;
+      document.getElementById('display-code').textContent = roomCode;
+      showScreen('waiting-view');
+    });
+
+    function joinSession() {
+      initAudio();
+      const code = document.getElementById('room-input').value.trim().toUpperCase();
+      if(code) {
+        roomCode = code;
+        socket.emit('joinRoom', { roomCode: code });
+      }
+    }
+
+    socket.on('gameStarted', (data) => {
+      isMultiplayer = true;
+      currentPuzzles = data.puzzles;
+      setupMatchArena(data.theme);
+    });
+
+    // --- Single Player Mode Handles ---
+    function selectLocalMode() {
+      initAudio();
+      showScreen('local-theme-view');
+    }
+
+    async function startSinglePlayer(theme) {
+      initAudio();
+      isMultiplayer = false;
+      const pool = await loadPuzzlePool(theme);
+      if (pool.length === 0) return;
+
+      currentPuzzles = shuffle([...pool]);
+      setupMatchArena(theme);
+    }
+
+    // --- Unified Gameplay Pipeline ---
+    function setupMatchArena(theme) {
+      score = 0; lives = 3; current = 0;
+      document.getElementById('my-score').textContent = `Your Score: 0`;
+      document.getElementById('lives').innerHTML = '❤️ ❤️ ❤️';
+      
+      const titles = {
+        'bollywood': '🇮🇳 Bollywood Movies',
+        'hollywood': '🎥 Hollywood Movies',
+        'characters': '🎭 Movie Characters',
+        'wordplay': '🔤 Word Play / Rebus'
+      };
+      
+      document.getElementById('theme-title').textContent = titles[theme] || '🎬 Emoji Puzzles';
+      
+      const oppBox = document.getElementById('opp-score');
+      oppBox.style.display = isMultiplayer ? 'block' : 'none';
+      oppBox.textContent = "Opponent: 0";
+
+      showScreen('game-view');
+      renderPuzzle();
+    }
+
+    function renderPuzzle() {
+      if (current >= currentPuzzles.length || lives <= 0) {
+        handleGameCompletion();
+        return;
+      }
+      
+      const emojiEl = document.getElementById('emoji');
+      emojiEl.style.animation = 'none';
+      void emojiEl.offsetWidth; 
+      emojiEl.style.animation = 'pop 0.4s ease';
+
+      emojiEl.textContent = currentPuzzles[current].q;
+      document.getElementById('answer').value = '';
+      document.getElementById('feedback').textContent = '';
+      document.getElementById('answer').focus();
+      startTimer();
+    }
+
+    function startTimer() {
+      clearInterval(timerInterval);
+      timeLeft = 45;
+      document.getElementById('timer').textContent = `Time: ${timeLeft}s`;
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timer').textContent = `Time: ${timeLeft}s`;
+        if (timeLeft <= 0) { 
+          clearInterval(timerInterval);
+          loseLife("Time's up!"); 
+        }
+      }, 1000);
+    }
+
+    function submitAnswer() {
+      const userRaw = document.getElementById('answer').value.trim();
+      if(!userRaw) return;
+
+      const user = cleanString(userRaw);
+      const correct = cleanString(currentPuzzles[current].a);
+
+      if (user === correct || (user.length > 3 && correct.includes(user))) {
+        clearInterval(timerInterval);
+        const points = timeLeft > 25 ? 15 : 8;
+        score += points;
+        document.getElementById('my-score').textContent = `Your Score: ${score}`;
+        document.getElementById('feedback').style.color = '#22c55e';
+        document.getElementById('feedback').innerHTML = `✅ Correct! +${points} pts`;
+        
+        flashBackground('correct-flash');
+        if (isMultiplayer) socket.emit('updateScore', { roomCode, score });
+        
+        current++;
+        setTimeout(renderPuzzle, 800);
+      } else {
+        loseLife("Wrong answer!");
+      }
+    }
+
+    function skipPuzzle() {
+      clearInterval(timerInterval);
+      score = Math.max(0, score - 5);
+      document.getElementById('my-score').textContent = `Your Score: ${score}`;
+      if (isMultiplayer) socket.emit('updateScore', { roomCode, score });
+      
+      document.getElementById('feedback').style.color = '#f59e0b';
+      document.getElementById('feedback').innerHTML = `⏭️ Answer: <strong>${currentPuzzles[current].a}</strong>`;
+      
+      current++;
+      setTimeout(renderPuzzle, 1500);
+    }
+
+    function loseLife(reason) {
+      clearInterval(timerInterval);
+      lives--;
+      document.getElementById('lives').innerHTML = '❤️ '.repeat(lives) || '💀';
+      flashBackground('wrong-flash');
+      
+      playWrongSound();
+
+      document.getElementById('feedback').style.color = '#ef4444';
+      document.getElementById('feedback').innerHTML = `❌ ${reason} Answer: <strong>${currentPuzzles[current].a}</strong>`;
+      
+      current++;
+      setTimeout(renderPuzzle, 2000);
+    }
+
+    function flashBackground(className) {
+      document.body.classList.add(className);
+      setTimeout(() => document.body.classList.remove(className), 400);
+    }
+
+    function handleGameCompletion() {
+      clearInterval(timerInterval);
+      if (isMultiplayer) {
+        document.getElementById('feedback').innerHTML = "⌛ Waiting for opponent to finish...";
+        socket.emit('playerFinished', { roomCode });
+      } else {
+        showScreen('end-view');
+        document.getElementById('match-title').textContent = "Game Complete!";
+        document.getElementById('final-outcome').textContent = `Final Score: ${score}`;
+        document.getElementById('final-stats').textContent = "";
+        
+        const rating = document.getElementById('rating');
+        if (score >= 100) rating.textContent = "Legendary Decipherer! 👑";
+        else if (score >= 60) rating.textContent = "Excellent! 🔥";
+        else if (score >= 30) rating.textContent = "Good Effort! 🍿";
+        else rating.textContent = "Better luck next time! 🎬";
+      }
+    }
+
+    function quitGame() {
+      clearInterval(timerInterval);
+      window.location.reload();
+    }
+
+    // --- Multiplayer Socket Events ---
+    socket.on('opponentScoreUpdated', (data) => {
+      document.getElementById('opp-score').textContent = `Opponent: ${data.score}`;
+    });
+
+    socket.on('matchOver', (data) => {
+      showScreen('end-view');
+      document.getElementById('rating').textContent = "";
+      
+      const pIds = Object.keys(data.players);
+      const myId = socket.id;
+      const oppId = pIds.find(id => id !== myId);
+
+      const myFinalScore = data.players[myId].score;
+      const oppFinalScore = oppId ? data.players[oppId].score : 0;
+
+      const outcomeEl = document.getElementById('final-outcome');
+      if (myFinalScore > oppFinalScore) {
+        outcomeEl.textContent = "🏆 Victory is Yours!";
+        outcomeEl.style.color = "#22c55e";
+      } else if (oppFinalScore > myFinalScore) {
+        outcomeEl.textContent = "💥 Opponent Wins!";
+        outcomeEl.style.color = "#ef4444";
+      } else {
+        outcomeEl.textContent = "🤝 It's a Tie!";
+        outcomeEl.style.color = "#f59e0b";
+      }
+      document.getElementById('final-stats').textContent = `Your Score: ${myFinalScore} | Opponent Score: ${oppFinalScore}`;
+    });
+
+    socket.on('errorMsg', (msg) => { alert(msg); window.location.reload(); });
+
+    document.addEventListener('keypress', e => {
+      if (e.key === 'Enter' && document.getElementById('game-view').style.display === 'block') {
+        submitAnswer();
+      }
+    });
+  </script>
+</body>
+</html>

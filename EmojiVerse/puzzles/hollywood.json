@@ -1,0 +1,703 @@
+[
+  {
+    "q": "🚢❄️💔",
+    "a": "Titanic"
+  },
+  {
+    "q": "🦕🏝️🌴",
+    "a": "Jurassic Park"
+  },
+  {
+    "q": "🕷️🕸️🦸",
+    "a": "Spider-Man"
+  },
+  {
+    "q": "🦇🃏🌃",
+    "a": "The Dark Knight"
+  },
+  {
+    "q": "💍🌋👹",
+    "a": "The Lord of the Rings"
+  },
+  {
+    "q": "⚡🧙‍♂️🏰",
+    "a": "Harry Potter"
+  },
+  {
+    "q": "🚀👽📞",
+    "a": "E.T. the Extra-Terrestrial"
+  },
+  {
+    "q": "🦁👑🌍",
+    "a": "The Lion King"
+  },
+  {
+    "q": "🎈🏠👴",
+    "a": "Up"
+  },
+  {
+    "q": "🐟🔍🌊",
+    "a": "Finding Nemo"
+  },
+  {
+    "q": "🤠🧸🚀",
+    "a": "Toy Story"
+  },
+  {
+    "q": "👗🎃🕛",
+    "a": "Cinderella"
+  },
+  {
+    "q": "❄️👸⛄",
+    "a": "Frozen"
+  },
+  {
+    "q": "🦈🏖️😱",
+    "a": "Jaws"
+  },
+  {
+    "q": "👻🚫🔬",
+    "a": "Ghostbusters"
+  },
+  {
+    "q": "🌪️👠🐕",
+    "a": "The Wizard of Oz"
+  },
+  {
+    "q": "🥊🐎💪",
+    "a": "Rocky"
+  },
+  {
+    "q": "🧑‍✈️🚀🌌",
+    "a": "Star Wars"
+  },
+  {
+    "q": "🦖🌋🏝️",
+    "a": "King Kong"
+  },
+  {
+    "q": "🕴️💼🔫",
+    "a": "The Matrix"
+  },
+  {
+    "q": "🩸🔪🚿",
+    "a": "Psycho"
+  },
+  {
+    "q": "🚗🔙⏰",
+    "a": "Back to the Future"
+  },
+  {
+    "q": "👦🍫🏭",
+    "a": "Charlie and the Chocolate Factory"
+  },
+  {
+    "q": "🕵️🎩🚬",
+    "a": "The Godfather"
+  },
+  {
+    "q": "🃏🎭😂",
+    "a": "Joker"
+  },
+  {
+    "q": "🏃‍♂️🍫🦐",
+    "a": "Forrest Gump"
+  },
+  {
+    "q": "🧠💭🌀",
+    "a": "Inception"
+  },
+  {
+    "q": "🌍👨‍🚀⏳",
+    "a": "Interstellar"
+  },
+  {
+    "q": "🤖⚔️🌆",
+    "a": "Terminator"
+  },
+  {
+    "q": "🦸‍♂️🌎🪨",
+    "a": "Avengers: Infinity War"
+  },
+
+  {
+    "q": "🧛‍♂️🩸💋",
+    "a": "Twilight"
+  },
+  {
+    "q": "🐺🌕🧑",
+    "a": "Twilight: New Moon"
+  },
+  {
+    "q": "🎩🐍💀",
+    "a": "Indiana Jones"
+  },
+  {
+    "q": "🚓👮‍♂️🍩",
+    "a": "Die Hard"
+  },
+  {
+    "q": "🎤🕺💃",
+    "a": "La La Land"
+  },
+  {
+    "q": "👸❄️🏰",
+    "a": "Frozen II"
+  },
+  {
+    "q": "🏴‍☠️⚓🦜",
+    "a": "Pirates of the Caribbean"
+  },
+  {
+    "q": "🐝🍯🎬",
+    "a": "Bee Movie"
+  },
+  {
+    "q": "🚗🏎️💨",
+    "a": "Fast & Furious"
+  },
+  {
+    "q": "🥷🐢🍕",
+    "a": "Teenage Mutant Ninja Turtles"
+  },
+  {
+    "q": "🧑‍🚀🌕🎥",
+    "a": "Apollo 13"
+  },
+  {
+    "q": "🎪🐘🎩",
+    "a": "The Greatest Showman"
+  },
+  {
+    "q": "👨‍👩‍👧‍👦🏠😱",
+    "a": "Home Alone"
+  },
+  {
+    "q": "🧙‍♂️💍👹🌋",
+    "a": "The Hobbit"
+  },
+  {
+    "q": "🐴🤠🔫",
+    "a": "Django Unchained"
+  },
+  {
+    "q": "🦍🏙️✈️",
+    "a": "King Kong: Skull Island"
+  },
+  {
+    "q": "🚁🌴🪖",
+    "a": "Apocalypse Now"
+  },
+  {
+    "q": "🧟‍♂️🌆😱",
+    "a": "World War Z"
+  },
+  {
+    "q": "🐳🚢🎣",
+    "a": "Moby Dick"
+  },
+  {
+    "q": "🏫👨‍🏫📚",
+    "a": "Dead Poets Society"
+  },
+  {
+    "q": "🦾⚡🤖",
+    "a": "Iron Man"
+  },
+  {
+    "q": "🛡️🇺🇸💪",
+    "a": "Captain America"
+  },
+  {
+    "q": "🔨⚡👨‍🦰",
+    "a": "Thor"
+  },
+  {
+    "q": "🐆👑🌍",
+    "a": "Black Panther"
+  },
+  {
+    "q": "🚀👽🎵",
+    "a": "Guardians of the Galaxy"
+  },
+  {
+    "q": "🐜🤏🦸",
+    "a": "Ant-Man"
+  },
+  {
+    "q": "🌀🧙‍♂️✋",
+    "a": "Doctor Strange"
+  },
+  {
+    "q": "🦸‍♂️🦸‍♀️🌍",
+    "a": "The Avengers"
+  },
+  {
+    "q": "⏳🦸‍♂️💔",
+    "a": "Avengers: Endgame"
+  },
+  {
+    "q": "🌟👩‍🚀💥",
+    "a": "Captain Marvel"
+  },
+  {
+    "q": "🧬🦸‍♂️⚡",
+    "a": "X-Men"
+  },
+  {
+    "q": "🗡️😂🔴",
+    "a": "Deadpool"
+  },
+  {
+    "q": "🕷️🖤👩",
+    "a": "Black Widow"
+  },
+  {
+    "q": "🕷️🌌🎨",
+    "a": "Spider-Man: Into the Spider-Verse"
+  },
+  {
+    "q": "🍎👸💤",
+    "a": "Snow White and the Seven Dwarfs"
+  },
+  {
+    "q": "🌹👹👸",
+    "a": "Beauty and the Beast"
+  },
+  {
+    "q": "🧞🪔🐒",
+    "a": "Aladdin"
+  },
+  {
+    "q": "🧜‍♀️🐚🌊",
+    "a": "The Little Mermaid"
+  },
+  {
+    "q": "⚔️👩🐉",
+    "a": "Mulan"
+  },
+  {
+    "q": "🌊👸⛵",
+    "a": "Moana"
+  },
+  {
+    "q": "🏠✨👨‍👩‍👧",
+    "a": "Encanto"
+  },
+  {
+    "q": "👱‍♀️🗼💡",
+    "a": "Tangled"
+  },
+  {
+    "q": "🐰🦊🏙️",
+    "a": "Zootopia"
+  },
+  {
+    "q": "💀🎸🌼",
+    "a": "Coco"
+  },
+  {
+    "q": "😀😢😡🧠",
+    "a": "Inside Out"
+  },
+  {
+    "q": "🏹👩‍🦰🐻",
+    "a": "Brave"
+  },
+  {
+    "q": "🕹️👊🍬",
+    "a": "Wreck-It Ralph"
+  },
+  {
+    "q": "🐒🐅🌴",
+    "a": "The Jungle Book"
+  },
+  {
+    "q": "🐕🐕🔟1️⃣",
+    "a": "101 Dalmatians"
+  },
+  {
+    "q": "🧚‍♀️🏴‍☠️✈️",
+    "a": "Peter Pan"
+  },
+  {
+    "q": "👸💤🌹",
+    "a": "Sleeping Beauty"
+  },
+  {
+    "q": "🪵👦🤥",
+    "a": "Pinocchio"
+  },
+  {
+    "q": "🦌🌲🔫",
+    "a": "Bambi"
+  },
+  {
+    "q": "🐘👂✈️",
+    "a": "Dumbo"
+  },
+  {
+    "q": "⚡👨‍🦱🏛️",
+    "a": "Hercules"
+  },
+  {
+    "q": "🍃👸🛶",
+    "a": "Pocahontas"
+  },
+  {
+    "q": "🌴🦍👦",
+    "a": "Tarzan"
+  },
+  {
+    "q": "🚗🏁💨",
+    "a": "Cars"
+  },
+  {
+    "q": "🐀🍳👨‍🍳",
+    "a": "Ratatouille"
+  },
+  {
+    "q": "🤖🌍💚",
+    "a": "WALL-E"
+  },
+  {
+    "q": "👹🚪😱",
+    "a": "Monsters, Inc."
+  },
+  {
+    "q": "🦸‍♂️👨‍👩‍👧‍👦💥",
+    "a": "The Incredibles"
+  },
+  {
+    "q": "🦸🛡️🇺🇸",
+    "a": "Captain America: The First Avenger"
+  },
+  {
+    "q": "🟢💥😡",
+    "a": "The Incredible Hulk"
+  },
+  {
+    "q": "🦖🔥🏙️",
+    "a": "Godzilla"
+  },
+  {
+    "q": "🦈🐠🌊",
+    "a": "The Meg"
+  },
+  {
+    "q": "🧛🩸🏰",
+    "a": "Dracula"
+  },
+  {
+    "q": "🤡🎈🎈",
+    "a": "It"
+  },
+  {
+    "q": "👻🏚️😱",
+    "a": "The Conjuring"
+  },
+  {
+    "q": "👨‍🚀🌕🚀",
+    "a": "The Martian"
+  },
+  {
+    "q": "🏝️🏐📦",
+    "a": "Cast Away"
+  },
+  {
+    "q": "🛳️🐯🌊",
+    "a": "Life of Pi"
+  },
+  {
+    "q": "🐼🥋🐉",
+    "a": "Kung Fu Panda"
+  },
+  {
+    "q": "🐉🏹🏝️",
+    "a": "How to Train Your Dragon"
+  },
+  {
+    "q": "👧🐰🕳️",
+    "a": "Alice in Wonderland"
+  },
+  {
+    "q": "🦍🐎⚔️",
+    "a": "Planet of the Apes"
+  },
+  {
+    "q": "🚄❄️🧟",
+    "a": "Snowpiercer"
+  },
+  {
+    "q": "🪂🏹🎯",
+    "a": "The Hunger Games"
+  },
+  {
+    "q": "🧑‍🚀🌍☄️",
+    "a": "Gravity"
+  },
+  {
+    "q": "🕵️🍸🔫",
+    "a": "James Bond: Skyfall"
+  },
+  {
+    "q": "🤖⚔️🚗",
+    "a": "Transformers"
+  },
+  {
+    "q": "👽⚔️🤖",
+    "a": "Edge of Tomorrow"
+  },
+  {
+    "q": "🐺❄️🌲",
+    "a": "The Grey"
+  },
+  {
+    "q": "🦇🥋🌃",
+    "a": "Batman Begins"
+  },
+  {
+    "q": "🦁👑🌅",
+    "a": "The Lion King"
+  },
+  {
+    "q": "🧊👸⛄",
+    "a": "Frozen"
+  },
+  {
+    "q": "🚢💔🌊",
+    "a": "Titanic"
+  },
+  {
+    "q": "🦖🏝️🧬",
+    "a": "Jurassic Park"
+  },
+  {
+    "q": "🧙⚡🏰",
+    "a": "Harry Potter"
+  },
+  {
+    "q": "💍🌋🧝",
+    "a": "The Lord of the Rings"
+  },
+  {
+    "q": "🕷️🦸🕸️",
+    "a": "Spider-Man"
+  },
+  {
+    "q": "🦇🌃🦸",
+    "a": "The Dark Knight"
+  },
+  {
+    "q": "🦸🛡️🇺🇸",
+    "a": "Captain America: The First Avenger"
+  },
+  {
+    "q": "🤖❤️⚡",
+    "a": "Iron Man"
+  },
+  {
+    "q": "🟢💥😡",
+    "a": "The Incredible Hulk"
+  },
+  {
+    "q": "🔨⚡🌩️",
+    "a": "Thor"
+  },
+  {
+    "q": "💎🦹🫰",
+    "a": "Avengers: Infinity War"
+  },
+  {
+    "q": "⌛🦸🌍",
+    "a": "Avengers: Endgame"
+  },
+  {
+    "q": "🧙🌀🔮",
+    "a": "Doctor Strange"
+  },
+  {
+    "q": "🐜🔬🦸",
+    "a": "Ant-Man"
+  },
+  {
+    "q": "🐱⚫👑",
+    "a": "Black Panther"
+  },
+  {
+    "q": "🦸‍♀️⚡🌟",
+    "a": "Captain Marvel"
+  },
+  {
+    "q": "🦈🌊😱",
+    "a": "Jaws"
+  },
+  {
+    "q": "🦍🏙️",
+    "a": "King Kong"
+  },
+  {
+    "q": "🦖🔥🏙️",
+    "a": "Godzilla"
+  },
+  {
+    "q": "🚀🌌👨‍🚀",
+    "a": "Interstellar"
+  },
+  {
+    "q": "🌌⚔️✨",
+    "a": "Star Wars"
+  },
+  {
+    "q": "🚀👽🌠",
+    "a": "E.T. the Extra-Terrestrial"
+  },
+  {
+    "q": "🤖❤️🌱",
+    "a": "WALL-E"
+  },
+  {
+    "q": "🧸🤠🚀",
+    "a": "Toy Story"
+  },
+  {
+    "q": "🐠🔍🌊",
+    "a": "Finding Nemo"
+  },
+  {
+    "q": "🚗🏁⚡",
+    "a": "Cars"
+  },
+  {
+    "q": "👻🚫🚗",
+    "a": "Ghostbusters"
+  },
+  {
+    "q": "🦈🐠🌊",
+    "a": "The Meg"
+  },
+  {
+    "q": "🧛🩸🏰",
+    "a": "Dracula"
+  },
+  {
+    "q": "🤡🎈🎈",
+    "a": "It"
+  },
+  {
+    "q": "👻🏚️😱",
+    "a": "The Conjuring"
+  },
+  {
+    "q": "👹👧🚪",
+    "a": "Monsters, Inc."
+  },
+  {
+    "q": "👨‍🚀🌕🚀",
+    "a": "The Martian"
+  },
+  {
+    "q": "🏝️🏐📦",
+    "a": "Cast Away"
+  },
+  {
+    "q": "🛳️🐯🌊",
+    "a": "Life of Pi"
+  },
+  {
+    "q": "🏃🍫🚌",
+    "a": "Forrest Gump"
+  },
+  {
+    "q": "🧠💭🌈",
+    "a": "Inside Out"
+  },
+  {
+    "q": "🐼🥋🐉",
+    "a": "Kung Fu Panda"
+  },
+  {
+    "q": "🐉🏹🏝️",
+    "a": "How to Train Your Dragon"
+  },
+  {
+    "q": "👸🌹📚",
+    "a": "Beauty and the Beast"
+  },
+  {
+    "q": "🧞🪔✨",
+    "a": "Aladdin"
+  },
+  {
+    "q": "🧜‍♀️🐚🌊",
+    "a": "The Little Mermaid"
+  },
+  {
+    "q": "🍎👸🪞",
+    "a": "Snow White and the Seven Dwarfs"
+  },
+  {
+    "q": "👠✨👸",
+    "a": "Cinderella"
+  },
+  {
+    "q": "👧🐰🕳️",
+    "a": "Alice in Wonderland"
+  },
+  {
+    "q": "🕶️💊🤖",
+    "a": "The Matrix"
+  },
+  {
+    "q": "🦍🐎⚔️",
+    "a": "Planet of the Apes"
+  },
+  {
+    "q": "🧟🌍🦠",
+    "a": "World War Z"
+  },
+  {
+    "q": "🚄❄️🧟",
+    "a": "Snowpiercer"
+  },
+  {
+    "q": "🪂🏹🎯",
+    "a": "The Hunger Games"
+  },
+  {
+    "q": "🧑‍🚀🌍☄️",
+    "a": "Gravity"
+  },
+  {
+    "q": "🕵️🍸🔫",
+    "a": "James Bond: Skyfall"
+  },
+  {
+    "q": "🏎️💨🏁",
+    "a": "Fast & Furious"
+  },
+  {
+    "q": "🚢💎🌊",
+    "a": "Pirates of the Caribbean"
+  },
+  {
+    "q": "🦇🃏🌃",
+    "a": "Batman Begins"
+  },
+  {
+    "q": "🦸⚔️🤖",
+    "a": "Transformers"
+  },
+  {
+    "q": "👽⚔️🤖",
+    "a": "Edge of Tomorrow"
+  },
+  {
+    "q": "🐺❄️🌲",
+    "a": "The Grey"
+  },
+  {
+    "q": "🌪️🏠👠",
+    "a": "The Wizard of Oz"
+  }
+]

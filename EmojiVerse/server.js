@@ -19,12 +19,26 @@ app.get('/', (req, res) => {
 // 3. Socket.io Game Logic
 const activeRooms = {};
 
+// Generate a room code that isn't already in use
+function generateRoomCode() {
+  let code;
+  do {
+    code = Math.random().toString(36).substring(2, 6).toUpperCase();
+  } while (activeRooms[code]);
+  return code;
+}
+
 io.on('connection', (socket) => {
   console.log('User connected:', socket.id);
 
   // Host creates room with custom theme and dataset
   socket.on('createRoom', ({ theme, puzzles }) => {
-    const roomCode = Math.random().toString(36).substring(2, 6).toUpperCase();
+    if (!Array.isArray(puzzles) || puzzles.length === 0) {
+      socket.emit('errorMsg', 'Invalid puzzle data.');
+      return;
+    }
+
+    const roomCode = generateRoomCode();
     socket.join(roomCode);
 
     activeRooms[roomCode] = {
@@ -74,12 +88,28 @@ io.on('connection', (socket) => {
       const allFinished = Object.values(room.players).every(p => p.finished);
       if (allFinished) {
         io.to(roomCode).emit('matchOver', { players: room.players });
+        delete activeRooms[roomCode]; // Clean up finished room
       }
     }
   });
 
   socket.on('disconnect', () => {
     console.log('User disconnected:', socket.id);
+
+    // Find the room this socket belonged to, notify the opponent, and clean up
+    for (const roomCode in activeRooms) {
+      const room = activeRooms[roomCode];
+      if (room.players[socket.id]) {
+        delete room.players[socket.id];
+        socket.to(roomCode).emit('opponentDisconnected');
+
+        // Remove the room entirely if it's now empty
+        if (Object.keys(room.players).length === 0) {
+          delete activeRooms[roomCode];
+        }
+        break;
+      }
+    }
   });
 });
 
